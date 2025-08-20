@@ -2,7 +2,7 @@
   "development": {
     "username": "postgres",
     "password": "admin",
-    "database": "yamaha_dashboard_machine",
+    "database": "sevima_hackaton",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
