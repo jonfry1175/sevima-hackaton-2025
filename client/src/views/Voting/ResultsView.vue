@@ -1,9 +1,75 @@
+<script setup lang="ts">
+import { ref, onMounted, computed } from 'vue'
+import { useRoute } from 'vue-router'
+import DefaultLayout from '@/layouts/DefaultLayout.vue'
+import LoadingAnimation from '@/components/common/LoadingAnimation.vue'
+import DataNotFound from '@/components/common/DataNotFound.vue'
+import useToast from '@/composables/useToast'
+import API from '@/services/API'
+
+interface CandidateResult {
+  candidate_id: number
+  candidate_name: string
+  candidate_photo?: string
+  candidate_nim?: string
+  candidate_faculty?: string
+  vote_count: number
+  percentage: number
+}
+
+interface EventResults {
+  event_id: number
+  event_title: string
+  total_votes: number
+  results: CandidateResult[]
+}
+
+const route = useRoute()
+const toast = useToast()
+
+const results = ref<EventResults | null>(null)
+const loading = ref(true)
+
+const eventId = computed(() => parseInt(route.params.eventId as string))
+
+// Sort results by vote count (descending)
+const sortedResults = computed(() => {
+  if (!results.value?.results) return []
+  return [...results.value.results].sort((a, b) => b.vote_count - a.vote_count)
+})
+
+const fetchResults = async () => {
+  try {
+    loading.value = true
+    const response = await API().get(`/events/${eventId.value}/results`)
+    results.value = response.data.data
+  } catch (error: any) {
+    console.error('Error fetching results:', error)
+    toast.add({
+      severity: 'error',
+      summary: 'Error fetching results',
+      detail: error.message
+    })
+  } finally {
+    loading.value = false
+  }
+}
+
+const refreshResults = () => {
+  fetchResults()
+}
+
+onMounted(() => {
+  fetchResults()
+})
+</script>
+
 <template>
   <DefaultLayout>
     <div class="mx-auto max-w-6xl">
       <!-- Loading State -->
       <div v-if="loading" class="flex items-center justify-center py-12">
-        <LoadingAnimation />
+        <LoadingAnimation :state="true"/>
       </div>
 
       <div v-else>
@@ -117,7 +183,7 @@
 
         <!-- No Results -->
         <div v-else-if="results && results.results.length === 0" class="py-12 text-center">
-          <DataNotFound />
+          <DataNotFound :condition="results.results.length === 0"/>
           <p class="mt-4 text-gray-600 dark:text-gray-400">
             Belum ada suara untuk event ini
           </p>
@@ -184,64 +250,3 @@
   </DefaultLayout>
 </template>
 
-<script setup lang="ts">
-import { ref, onMounted, computed } from 'vue'
-import { useRoute } from 'vue-router'
-import DefaultLayout from '@/layouts/DefaultLayout.vue'
-import LoadingAnimation from '@/components/common/LoadingAnimation.vue'
-import DataNotFound from '@/components/common/DataNotFound.vue'
-import useToast from '@/composables/useToast'
-import API from '@/services/API'
-
-interface CandidateResult {
-  candidate_id: number
-  candidate_name: string
-  candidate_photo?: string
-  candidate_nim?: string
-  candidate_faculty?: string
-  vote_count: number
-  percentage: number
-}
-
-interface EventResults {
-  event_id: number
-  event_title: string
-  total_votes: number
-  results: CandidateResult[]
-}
-
-const route = useRoute()
-const { showToast } = useToast()
-
-const results = ref<EventResults | null>(null)
-const loading = ref(true)
-
-const eventId = computed(() => parseInt(route.params.eventId as string))
-
-// Sort results by vote count (descending)
-const sortedResults = computed(() => {
-  if (!results.value?.results) return []
-  return [...results.value.results].sort((a, b) => b.vote_count - a.vote_count)
-})
-
-const fetchResults = async () => {
-  try {
-    loading.value = true
-    const response = await API().get(`/events/${eventId.value}/results`)
-    results.value = response.data.data
-  } catch (error: any) {
-    console.error('Error fetching results:', error)
-    showToast('Error loading results', 'error')
-  } finally {
-    loading.value = false
-  }
-}
-
-const refreshResults = () => {
-  fetchResults()
-}
-
-onMounted(() => {
-  fetchResults()
-})
-</script>

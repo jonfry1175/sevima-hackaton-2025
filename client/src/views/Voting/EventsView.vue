@@ -15,7 +15,7 @@
 
       <!-- Loading State -->
       <div v-if="loading" class="flex items-center justify-center py-12">
-        <LoadingAnimation />
+        <LoadingAnimation :state="true"/>
       </div>
 
       <!-- Events Grid -->
@@ -120,7 +120,7 @@
 
       <!-- Empty State -->
       <div v-else class="flex flex-col items-center justify-center py-12">
-        <DataNotFound />
+        <DataNotFound :condition="events.length === 0"/>
         <p class="mt-4 text-center text-gray-600 dark:text-gray-400">
           Belum ada event voting tersedia
         </p>
