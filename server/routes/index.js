@@ -2,6 +2,8 @@ const router = require("express").Router();
 const { exec, execSync } = require("child_process");
 const roleRouter = require("./roles");
 const userRouter = require("./users");
+const eventRouter = require("./events");
+const voteRouter = require("./votes");
 
 router.get("/", async (req, res) => {
   res.send("Hello World!");
@@ -42,5 +44,7 @@ router.post("restart", (req, res) => {
 
 router.use("/users", userRouter);
 router.use("/roles", roleRouter);
+router.use("/events", eventRouter);
+router.use("/votes", voteRouter);
 
 module.exports = router;

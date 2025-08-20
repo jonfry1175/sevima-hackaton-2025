@@ -11,6 +11,12 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       // User has one role
       User.belongsTo(models.Role, { foreignKey: "role_id" });
+      
+      // User can create events (admin)
+      User.hasMany(models.Event, { foreignKey: "created_by", as: "createdEvents" });
+      
+      // User can have many votes
+      User.hasMany(models.Vote, { foreignKey: "user_id", as: "votes" });
     }
   }
   User.init(
@@ -55,6 +61,23 @@ module.exports = (sequelize, DataTypes) => {
       profile_image: {
         type: DataTypes.STRING,
         allowNull: true,
+      },
+      email: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        unique: true,
+        validate: {
+          isEmail: true,
+        },
+      },
+      faculty: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      is_verified: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
       },
     },
     {
