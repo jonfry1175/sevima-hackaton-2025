@@ -138,7 +138,7 @@ const buttonClass = computed(() => {
           name="NIK"
           :default-value="userData?.NIK"
           :useGrouping="false"
-          class="w-full dark:text-gray-800 text-white text-sm border border-gray-300 px-4 py-3 rounded-md outline-blue-600"
+          class="w-full text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-700 text-sm border border-gray-300 dark:border-gray-600 px-4 py-3 rounded-md outline-blue-600"
           placeholder="Enter NIK"
         />
         <Message v-if="$form.NIK?.invalid" severity="error" size="small" variant="simple">{{
@@ -155,7 +155,7 @@ const buttonClass = computed(() => {
               :default-value="userData?.name"
               type="text"
               required
-              class="w-full text-white dark:text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md outline-blue-600"
+              class="w-full text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-700 text-sm border border-gray-300 dark:border-gray-600 px-4 py-3 rounded-md outline-blue-600"
               placeholder="Enter name"
             />
             <svg
@@ -181,12 +181,12 @@ const buttonClass = computed(() => {
       <FormField v-if="showFormField.password" name="password">
         <div>
           <label class="text-gray-800 dark:text-white text-sm mb-2 block">Password</label>
-          <div class="relative flex items-center full text-white dark:text-gray-800">
+          <div class="relative flex items-center">
             <InputText
               @update:model-value="password = $event"
               :type="showPassword ? 'text' : 'password'"
               required
-              class="w-full text-sm border border-gray-300 px-4 py-3 rounded-md outline-blue-600"
+              class="w-full text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-700 text-sm border border-gray-300 dark:border-gray-600 px-4 py-3 rounded-md outline-blue-600"
               placeholder="Enter password"
             />
             <button
@@ -205,12 +205,12 @@ const buttonClass = computed(() => {
 
       <FormField v-if="showFormField.confirmPassword" name="confirmPassword">
         <div>
-          <label class="text-gray-800 text-sm mb-2 block">Confirm Password</label>
+          <label class="text-gray-800 dark:text-white text-sm mb-2 block">Confirm Password</label>
           <div class="relative flex items-center">
             <InputText
               :type="showConfirmPassword ? 'text' : 'password'"
               required
-              class="w-full dark:text-gray-800 text-white text-sm border border-gray-300 px-4 py-3 rounded-md outline-blue-600"
+              class="w-full text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-700 text-sm border border-gray-300 dark:border-gray-600 px-4 py-3 rounded-md outline-blue-600"
               placeholder="Enter confirm password"
             />
             <button
@@ -268,14 +268,14 @@ const buttonClass = computed(() => {
           </div>
         </button>
       </div>
-      <!-- <p class="text-gray-800 text-sm !mt-8 text-center">
+      <p class="text-white-800 text-sm !mt-8 text-center">
         {{ page === 'Sign in' ? "Don't have an account?" : 'Already have an account?' }}
         <a
           :href="page === 'Sign in' ? '/register' : '/login'"
           class="text-blue-600 hover:underline ml-1 whitespace-nowrap font-semibold"
           >{{ page === 'Sign in' ? 'Register' : 'Login' }} here</a
         >
-      </p> -->
+      </p>
 
       <p v-if="page !== 'Sign in'" class="text-gray-800 text-sm !mt-8 text-center">
         {{ 'Already have an account?' }}
