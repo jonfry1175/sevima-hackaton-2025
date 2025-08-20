@@ -121,6 +121,8 @@ pnpm run full-restore     # drop + create + restore
 
 - **TypeScript:** Strict type checking enabled across both frontend and backend
 - **Code Quality:** ESLint + Prettier configured for consistent formatting
+- **Vue Component Structure:** Always follow SFC order: `<script>` > `<template>` > `<style>`
+- **CSS Standards:** Minimize custom CSS; use Tailwind utilities instead of custom styles
 - **State Management:** Use Pinia stores for complex state, Vue reactivity for simple cases
 - **API Integration:** Centralized in `services/` directory with proper error handling
 - **Database:** Use Sequelize migrations for schema changes, seeders for test data

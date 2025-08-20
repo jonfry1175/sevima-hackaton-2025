@@ -21,24 +21,17 @@ onMounted(() => {
   >
     <div class="min-h-screen flex flex-col items-center justify-center py-10 px-4">
       <div class="max-w-md w-full">
-        <a href="#">
-          <img
-            src="@/assets/images/logo/yamaha-motor.svg"
-            alt="logo"
-            class="w-40 mb-6 mx-auto block brightness-200 contrast-125"
-          />
-        </a>
+        <div class="text-center mb-8">
+          <div class="inline-flex items-center space-x-2">
+            <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
+              <span class="text-white font-bold text-xl">T</span>
+            </div>
+            <span class="text-2xl font-bold text-white">TailAdmin</span>
+          </div>
+        </div>
 
         <div class="p-8 rounded-2xl bg-white/10 shadow-xl backdrop-blur-xl border border-white/20">
           <h2 class="text-center text-3xl font-bold text-white tracking-wide">{{ page }}</h2>
-          <h5 v-if="description" class="text-blue-300 text-center mt-2">{{ description }}</h5>
-          <!-- link video tutorial -->
-          <p class="text-center text-red-400 mt-2">
-            <a :href="video" target="_blank" rel="noopener noreferrer" class="hover:underline">
-              Tutorial Transfer File MC-3
-            </a>
-          </p>
-
           <slot />
         </div>
       </div>
