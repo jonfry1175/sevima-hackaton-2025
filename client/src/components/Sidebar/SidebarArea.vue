@@ -36,6 +36,12 @@ const menuGroups = computed<MenuGroup[]>(() => {
           route: '/',
           visible: true,
           icon: `<i class="fa-solid fa-home"></i>`
+        },
+        {
+          label: 'Voting Events',
+          route: '/events',
+          visible: true,
+          icon: `<i class="fa-solid fa-vote-yea"></i>`
         }
       ]
     }

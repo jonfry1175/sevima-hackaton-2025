@@ -40,6 +40,28 @@ export function convertTimestamp(timestamp: number, timezoneOffset: number = 0):
   return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`
 }
 
+export function formatDate(dateInput: string | number | Date): string {
+  let date: Date;
+  
+  if (typeof dateInput === 'string') {
+    date = new Date(dateInput);
+  } else if (typeof dateInput === 'number') {
+    // If it's a timestamp in seconds, convert to milliseconds
+    date = new Date(dateInput * 1000);
+  } else {
+    date = dateInput;
+  }
+
+  // Format the date
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+
+  return `${day}/${month}/${year} ${hours}:${minutes}`;
+}
+
 export function formatTimeDifference(timestamp: number): string {
   const now = Math.floor(Date.now() / 1000) // Waktu saat ini dalam detik
   const difference = Math.abs(timestamp - now) // Selisih waktu dalam detik

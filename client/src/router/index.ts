@@ -3,6 +3,9 @@ import AuthView from '@/views/Authentication/AuthView.vue'
 import ForgotPasswordView from '@/views/Authentication/ForgotPasswordView.vue'
 import ResetPasswordView from '@/views/Authentication/ResetPasswordView.vue'
 import DashboardView from '@/views/DashboardView.vue'
+import EventsView from '@/views/Voting/EventsView.vue'
+import VotingView from '@/views/Voting/VotingView.vue'
+import ResultsView from '@/views/Voting/ResultsView.vue'
 
 const routes: Readonly<RouteRecordRaw[]> = [
   {
@@ -52,6 +55,30 @@ const routes: Readonly<RouteRecordRaw[]> = [
         next({ name: 'login' })
       }
     }
+  },
+  {
+    path: '/events',
+    name: 'events',
+    component: EventsView,
+    meta: {
+      title: 'Voting Events'
+    }
+  },
+  {
+    path: '/voting/:eventId',
+    name: 'voting',
+    component: VotingView,
+    meta: {
+      title: 'Cast Your Vote'
+    }
+  },
+  {
+    path: '/results/:eventId',
+    name: 'results',
+    component: ResultsView,
+    meta: {
+      title: 'Election Results'
+    }
   }
 ]
 
@@ -73,8 +100,8 @@ router.beforeEach((to, from, next) => {
   const dashboardRoute = routes.find((route) => route.name === 'dashboard')
 
   const protectedRouteName = dashboardRoute
-    ? [dashboardRoute.name, ...(dashboardRoute.children?.map((child) => child.name) || [])]
-    : []
+    ? [dashboardRoute.name, ...(dashboardRoute.children?.map((child) => child.name) || []), 'events', 'voting', 'results']
+    : ['events', 'voting', 'results']
 
   const authRouteName = ['login', 'register', 'forgotPassword']
 
