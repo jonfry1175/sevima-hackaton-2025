@@ -51,9 +51,9 @@ const submitForm = async (e: FormSubmitEvent): Promise<void> => {
       })
 
       setTimeout(() => {
-        router.replace({ name: 'transferFile' })
+        router.replace({ name: 'events' })
         setDarkMode(true)
-      }, 200)
+      }, 100)
     } catch (error) {
       handleErrorAPI(error, toast)
     }

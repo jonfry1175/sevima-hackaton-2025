@@ -58,7 +58,7 @@ const resolver = computed(() => {
       NIK: z
         .string()
         .nonempty('NIK is required')
-        .regex(/^RK\d{5}$/, 'NIK must start with RK followed by 4 digits')
+        .regex(/^\d{7}$/, 'NIK must be 7 digits')
         .length(7, 'NIK must be 7 characters'),
       // required if page is sign up
       name: showFormField.value.name
